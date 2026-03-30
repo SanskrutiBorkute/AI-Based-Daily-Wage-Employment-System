@@ -17,7 +17,6 @@ The system uses Artificial Intelligence to generate CAPTCHAs with different patt
 ## 1. Introduction
 
 CAPTCHAs are widely used for security in websites, but traditional CAPTCHAs have many problems. Some are too simple and can be broken by bots, while others are too complex for humans.
-
 This project aims to solve this problem by creating a smart CAPTCHA system that balances security and usability. The goal is to make CAPTCHAs that are easy for humans but difficult for machines.
 
 ---
@@ -38,18 +37,14 @@ This project aims to solve this problem by creating a smart CAPTCHA system that 
 
 ## 4. Implementation
 
-Programming Languages:
-
-Python
+Programming Languages:Python
 
 Frameworks/Libraries:
-
 OpenCV
 TensorFlow / PyTorch
 NumPy
 
 Tools Used:
-
 - VS Code
 - Google Colab
 - GitHub
@@ -86,6 +81,6 @@ This project successfully creates a smart CAPTCHA system that improves security 
 
 ## References
 
-[1] CAPTCHA Security Research Papers
-[2] OpenCV Documentation
-[3] https://tensorflow.org
+- [1] CAPTCHA Security Research Papers
+- [2] OpenCV Documentation
+- [3] https://tensorflow.org
