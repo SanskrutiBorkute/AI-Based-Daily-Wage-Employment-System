@@ -1,13 +1,17 @@
 # Project Title
 #  AI-Based Smart CAPTCHA Generator and Analyzer
 
-**Author(s):** Sanskruti Borkute
-**Affiliation:** Suryodaya college / Rtmnu
+### Author
+Sanskruti Borkute
+---
+Affiliation 
+Suryodaya college / Rtmnu
+---
 **Date:** 27/03/2026
 
 ---
 
-## 📄 Abstract
+##  Abstract
 
 This project focuses on creating a smart CAPTCHA system that can generate secure CAPTCHAs and also analyze their strength. CAPTCHAs are used to differentiate between humans and bots, but many existing CAPTCHAs are either too easy for bots or too difficult for users.
 The system uses Artificial Intelligence to generate CAPTCHAs with different patterns, distortions, and noise. It also analyzes how strong the CAPTCHA is against automated attacks. The results show that the system provides better security while still being user-friendly.
