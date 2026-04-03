@@ -1,5 +1,5 @@
 # Project Title
-#  AI-Based Smart CAPTCHA Generator and Analyzer
+# AI-Based Daily Wage Employment System
 
 ### Author
 Sanskruti Borkute
@@ -13,78 +13,81 @@ Suryodaya college / Rtmnu
 
 ##  Abstract
 
-This project focuses on creating a smart CAPTCHA system that can generate secure CAPTCHAs and also analyze their strength. CAPTCHAs are used to differentiate between humans and bots, but many existing CAPTCHAs are either too easy for bots or too difficult for users.
-The system uses Artificial Intelligence to generate CAPTCHAs with different patterns, distortions, and noise. It also analyzes how strong the CAPTCHA is against automated attacks. The results show that the system provides better security while still being user-friendly.
+This project focuses on developing an AI-based system to connect daily wage workers with employers. Many workers struggle to find jobs regularly, and employers also face difficulty in finding reliable workers quickly.
+The system uses Artificial Intelligence to match workers with job opportunities based on skills, location, and availability. It helps in reducing unemployment and makes the hiring process faster and more efficient.
+The results show that the system can improve job matching and provide better opportunities for daily wage workers.
 
 ---
 
 ## 1. Introduction
 
-CAPTCHAs are widely used for security in websites, but traditional CAPTCHAs have many problems. Some are too simple and can be broken by bots, while others are too complex for humans.
-This project aims to solve this problem by creating a smart CAPTCHA system that balances security and usability. The goal is to make CAPTCHAs that are easy for humans but difficult for machines.
+Daily wage workers often face problems in finding regular work, while employers struggle to find suitable workers on time. Traditional methods are not efficient and lack proper communication.
 
+- This project aims to build a smart platform that connects workers and employers using AI. The goal is to make job searching and hiring simple, fast, and reliable.
 ---
 
 ## 2. Literature Review
 
-- Traditional text-based CAPTCHAs can be broken using OCR (Optical Character Recognition).
-- Image-based CAPTCHAs improve security but reduce usability.
-- AI-based attacks have made many CAPTCHAs less effective.
+- Traditional job search methods are manual and time-consuming
+- Online job portals are not designed for daily wage workers
+- AI-based recommendation systems improve matching accuracy
 
-.
+This project improves existing systems by focusing on daily wage employment and real-time matching
+
+
 ---
 
 ## 3. Methodology
-
-- The system generates random CAPTCHA images using characters, distortions, and noise. Then, a strength analyzer checks how difficult it is for a bot to solve the CAPTCHA. AI techniques are used to test and improve CAPTCHA security. The system adjusts the CAPTCHA complexity based on analysis results.
+The system collects data from workers such as skills, location, and availability. Employers post job requirements. AI algorithms analyze both datasets and match suitable workers with jobs. The system also provides notifications and updates to both workers and employers.
 ---
 
 ## 4. Implementation
 
-Programming Languages:Python
+Programming Languages:
+Python
+JavaScript
 
 Frameworks/Libraries:
-OpenCV
-TensorFlow / PyTorch
-NumPy
+Flask / Django
+Machine Learning libraries (scikit-learn)
+React (for frontend)
 
 Tools Used:
 - VS Code
-- Google Colab
+- Firebase / MySQL
 - GitHub
 ---
 
 ## 5. Results and Discussion
 
-- Generated CAPTCHAs are more secure than traditional ones
-- Reduced success rate of bots
-- Maintains readability for users
+- Faster job matching process
+- Better employment opportunities for workers
+- Improved hiring efficiency for employers  
 ---
 
 ## 6. Limitations
 
-- Requires training data for AI models
-- May increase processing time
-- Not 100% secure against advanced AI attacks
+- Requires internet access
+- Data accuracy depends on user input
+- Limited reach in rural areas
 ---
 
 ## 7. Future Scope
 
-- Real-time adaptive CAPTCHA generation
-- Integration with websites and apps
-- Multi-language CAPTCHA support
-- Use of advanced deep learning models
+- Mobile app development
+- Multi-language support
+- Integration with government job schemes
+- AI-based skill recommendation system
 
 ---
 
 ## 8. Conclusion
 
-This project successfully creates a smart CAPTCHA system that improves security while keeping it user-friendly. It provides a better solution compared to traditional CAPTCHA methods.
-
+This project provides a smart and efficient solution for connecting daily wage workers with employers. It helps reduce unemployment and improves the hiring process using AI.
 ---
 
 ## References
 
-- [1] CAPTCHA Security Research Papers
-- [2] OpenCV Documentation
-- [3] https://tensorflow.org
+- [1] Research Papers on Employment Systems
+- [2] AI-based Recommendation Systems
+- [3] https://www.indeed.com
