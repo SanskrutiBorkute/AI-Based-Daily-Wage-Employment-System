@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>KaamSetu — Daily Wage Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700;900&family=Noto+Sans+Devanagari:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #F05A1A;
+  --orange-d: #C44A12;
+  --orange-l: #FEF0E8;
+  --green: #16A34A;
+  --green-l: #DCFCE7;
+  --red: #DC2626;
+  --red-l: #FEE2E2;
+  --blue: #1D6FB8;
+  --blue-l: #DBEAFE;
+  --gold: #D97706;
+  --gold-l: #FEF3C7;
+  --bg: #F5F5F5;
+  --white: #FFFFFF;
+  --ink: #111827;
+  --ink2: #374151;
+  --ink3: #6B7280;
+  --border: #E5E7EB;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: 'Noto Sans', 'Noto Sans Devanagari', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ── SCREENS ── */
+.screen { display:none; min-height:100vh; flex-direction:column; }
+.screen.active { display:flex; }
+
+/* ── TOP BAR ── */
+.topbar {
+  background: var(--orange);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.topbar-back {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  border-radius: 8px;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.topbar-title {
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  flex: 1;
+  letter-spacing: -0.3px;
+}
+
+.topbar-lang {
+  display: flex;
+  gap: 4px;
+}
+
+.lang-btn {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  font-family: inherit;
+  transition: all 0.13s;
+}
+
+.lang-btn.active {
+  background: #fff;
+  color: var(--orange);
+  border-color: #fff;
+}
+
+/* ── SCROLL BODY ── */
+.scroll-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  padding-bottom: 80px;
+}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 480px;
+  background: var(--white);
+  border-top: 1.5px solid var(--border);
+  display: flex;
+  z-index: 100;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+}
+
+.bn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 6px 8px;
+  cursor: pointer;
+  border-top: 3px solid transparent;
+  gap: 3px;
+  transition: all 0.13s;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+}
+
+.bn.active { border-top: 3px solid var(--orange); }
+.bn-icon { font-size: 22px; }
+.bn-lbl { font-size: 10px; font-weight: 700; color: #9CA3AF; }
+.bn.active .bn-lbl { color: var(--orange); }
+
+/* ── BIG BUTTONS (for low-literacy UI) ── */
+.big-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 12px;
+  transition: all 0.15s;
+  text-align: left;
+  font-family: inherit;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.big-btn:hover, .big-btn:active { border-color: var(--orange); background: var(--orange-l); }
+
+.big-btn-icon {
+  font-size: 38px;
+  flex-shrink: 0;
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.big-btn-text { flex: 1; }
+.big-btn-title { font-size: 18px; font-weight: 800; color: var(--ink); margin-bottom: 3px; }
+.big-btn-sub { font-size: 13px; color: var(--ink3); line-height: 1.4; }
+.big-btn-arrow { font-size: 20px; color: var(--ink3); flex-shrink: 0; }
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, var(--orange), var(--orange-d));
+  border-radius: 16px;
+  padding: 22px 20px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.hero-greeting { font-size: 13px; font-weight: 600; opacity: 0.75; margin-bottom: 4px; }
+.hero-title { font-size: 26px; font-weight: 900; line-height: 1.15; margin-bottom: 8px; letter-spacing: -0.5px; }
+.hero-sub { font-size: 14px; opacity: 0.75; line-height: 1.5; margin-bottom: 16px; }
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.hero-stat {
+  background: rgba(255,255,255,0.15);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.hero-stat-num { font-size: 20px; font-weight: 900; }
+.hero-stat-lbl { font-size: 10px; opacity: 0.75; margin-top: 2px; font-weight: 600; }
+
+/* ── SECTION LABEL ── */
+.sec-lbl {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink3);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 10px;
+  margin-top: 6px;
+}
+
+/* ── WORKER CARD (simple) ── */
+.worker-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.13s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.worker-card:hover { border-color: var(--orange); }
+
+.wc-row1 { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+
+.wc-avatar {
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.wc-verified-badge {
+  position: absolute;
+  bottom: -3px; right: -3px;
+  background: var(--green);
+  color: #fff;
+  font-size: 8px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.wc-info { flex: 1; }
+.wc-name { font-size: 17px; font-weight: 800; color: var(--ink); }
+.wc-trade { font-size: 14px; font-weight: 600; color: var(--orange); margin-top: 2px; }
+.wc-loc { font-size: 12px; color: var(--ink3); margin-top: 3px; }
+
+.wc-avail {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.avail-now { background: var(--green-l); color: var(--green); }
+.avail-soon { background: var(--gold-l); color: var(--gold); }
+.avail-busy { background: var(--red-l); color: var(--red); }
+
+.wc-row2 { display: flex; align-items: center; justify-content: space-between; padding-top: 10px; border-top: 1px solid var(--border); }
+
+.wc-rate { font-size: 18px; font-weight: 900; color: var(--ink); }
+.wc-rate span { font-size: 12px; font-weight: 500; color: var(--ink3); }
+
+.wc-rating { font-size: 13px; font-weight: 700; color: var(--gold); }
+
+.call-btn {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.13s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.call-btn:hover { background: var(--orange-d); }
+
+/* ── FORM ELEMENTS ── */
+.form-group { margin-bottom: 16px; }
+
+.form-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink2);
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--white);
+  outline: none;
+  transition: all 0.13s;
+  -webkit-appearance: none;
+}
+
+.form-input:focus { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-l); }
+
+.form-select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--white);
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%236B7280' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+.form-select:focus { border-color: var(--orange); }
+
+/* Voice button */
+.voice-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px;
+  background: var(--blue-l);
+  border: 2px solid var(--blue);
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--blue);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+  margin-bottom: 12px;
+}
+
+.voice-btn:hover { background: #BFDBFE; }
+.voice-btn.listening { background: var(--red-l); border-color: var(--red); color: var(--red); animation: pulse 1s infinite; }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+/* Trade grid */
+.trade-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.trade-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 12px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink2);
+  background: var(--white);
+  font-family: inherit;
+  transition: all 0.13s;
+}
+
+.trade-chip:hover, .trade-chip.selected {
+  border-color: var(--orange);
+  background: var(--orange-l);
+  color: var(--orange);
+}
+
+.trade-chip-icon { font-size: 22px; }
+
+/* Submit btn */
+.submit-btn {
+  width: 100%;
+  padding: 18px;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: -0.3px;
+  transition: all 0.15s;
+  box-shadow: 0 4px 16px rgba(240,90,26,0.3);
+  margin-top: 8px;
+}
+
+.submit-btn:hover { background: var(--orange-d); }
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── AI CHAT BOX ── */
+.chat-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.chat-msg {
+  padding: 14px 16px;
+  border-radius: 16px;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 90%;
+}
+
+.chat-msg.ai {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  align-self: flex-start;
+  border-radius: 4px 16px 16px 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.chat-msg.user {
+  background: var(--orange);
+  color: #fff;
+  align-self: flex-end;
+  border-radius: 16px 4px 16px 16px;
+}
+
+.chat-msg .ai-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--orange);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.typing-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--ink3);
+  animation: bounce 1.2s infinite;
+  margin: 0 2px;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} }
+
+.chat-input-row {
+  display: flex;
+  gap: 8px;
+  position: sticky;
+  bottom: 80px;
+  background: var(--bg);
+  padding: 8px 0 4px;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 13px 16px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  background: var(--white);
+}
+
+.chat-input:focus { border-color: var(--orange); }
+
+.chat-send {
+  padding: 0 18px;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 20px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.chat-voice-btn {
+  padding: 0 14px;
+  background: var(--blue-l);
+  color: var(--blue);
+  border: 2px solid var(--blue);
+  border-radius: 12px;
+  font-size: 20px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ── MISC ── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+.pill-green { background: var(--green-l); color: var(--green); }
+.pill-orange { background: var(--orange-l); color: var(--orange); }
+.pill-blue { background: var(--blue-l); color: var(--blue); }
+.pill-red { background: var(--red-l); color: var(--red); }
+
+.divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+.toast {
+  position: fixed;
+  bottom: 90px; left: 50%; transform: translateX(-50%);
+  background: var(--ink);
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 700;
+  z-index: 999;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+  max-width: 90%;
+  text-align: center;
+}
+
+.toast.show { opacity: 1; }
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-icon { font-size: 52px; margin-bottom: 14px; }
+.empty-title { font-size: 18px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+.empty-sub { font-size: 14px; color: var(--ink3); line-height: 1.5; }
+
+.spinner {
+  width: 28px; height: 28px;
+  border: 3px solid var(--border);
+  border-top-color: var(--orange);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.card-head {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-body { padding: 14px 16px; }
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.info-row:last-child { border-bottom: none; }
+.info-key { color: var(--ink3); font-weight: 500; }
+.info-val { font-weight: 700; color: var(--ink); }
+
+/* Wage slider */
+.wage-display {
+  background: var(--orange);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.wage-num { font-size: 36px; font-weight: 900; letter-spacing: -1px; }
+.wage-per { font-size: 14px; opacity: 0.8; }
+
+input[type=range] {
+  width: 100%;
+  accent-color: var(--orange);
+  height: 6px;
+  cursor: pointer;
+}
+
+/* Job posted card */
+.job-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.job-card-title { font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
+.job-card-meta { font-size: 13px; color: var(--ink3); margin-bottom: 8px; }
+.job-card-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+/* Profile detail screen */
+.profile-hero {
+  background: var(--orange);
+  padding: 24px 16px 20px;
+  text-align: center;
+  color: #fff;
+}
+
+.ph-avatar {
+  width: 80px; height: 80px;
+  border-radius: 20px;
+  margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+  font-weight: 900;
+  color: #fff;
+  border: 3px solid rgba(255,255,255,0.4);
+}
+
+.ph-name { font-size: 24px; font-weight: 900; margin-bottom: 3px; }
+.ph-trade { font-size: 16px; opacity: 0.85; margin-bottom: 8px; }
+
+.ph-badges { display: flex; justify-content: center; gap: 7px; flex-wrap: wrap; }
+
+.ph-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
+
+.avail-strip {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.avail-day {
+  border-radius: 7px;
+  padding: 7px 4px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.avail-day-name { margin-bottom: 3px; opacity: 0.7; }
+.avail-day.free { background: var(--green-l); color: var(--green); }
+.avail-day.busy { background: var(--red-l); color: var(--red); }
+.avail-day.half { background: var(--gold-l); color: var(--gold); }
+
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ════════════════════════════════
+  SCREEN: HOME
+════════════════════════════════ -->
+<div class="screen active" id="screen-home">
+  <div class="topbar">
+    <div class="topbar-title">🔨 KaamSetu</div>
+    <div class="topbar-lang" id="lang-btns-home"></div>
+  </div>
+
+  <div class="scroll-body">
+    <div class="hero">
+      <div class="hero-greeting" id="h-greeting">Good morning 👋</div>
+      <div class="hero-title" id="h-title">Find Work.<br>Get Paid.</div>
+      <div class="hero-sub" id="h-sub">Connect workers with employers. Fast, simple, trusted.</div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num" id="stat-workers">0</div>
+          <div class="hero-stat-lbl" id="h-stat1">Workers</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num" id="stat-jobs">0</div>
+          <div class="hero-stat-lbl" id="h-stat2">Jobs</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">4.8★</div>
+          <div class="hero-stat-lbl" id="h-stat3">Rating</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-lbl" id="h-choose">WHAT DO YOU WANT TO DO?</div>
+
+    <button class="big-btn" onclick="goScreen('find-workers')">
+      <div class="big-btn-icon" style="background:#FEF0E8">🔍</div>
+      <div class="big-btn-text">
+        <div class="big-btn-title" id="h-btn1">Find a Worker</div>
+        <div class="big-btn-sub" id="h-btn1s">Plumber, Electrician, Painter…</div>
+      </div>
+      <div class="big-btn-arrow">›</div>
+    </button>
+
+    <button class="big-btn" onclick="goScreen('register')">
+      <div class="big-btn-icon" style="background:#DCFCE7">👷</div>
+      <div class="big-btn-text">
+        <div class="big-btn-title" id="h-btn2">I am a Worker</div>
+        <div class="big-btn-sub" id="h-btn2s">Register and find work near you</div>
+      </div>
+      <div class="big-btn-arrow">›</div>
+    </button>
+
+    <button class="big-btn" onclick="goScreen('post-job')">
+      <div class="big-btn-icon" style="background:#DBEAFE">📋</div>
+      <div class="big-btn-text">
+        <div class="big-btn-title" id="h-btn3">Post a Job</div>
+        <div class="big-btn-sub" id="h-btn3s">Tell us what work you need done</div>
+      </div>
+      <div class="big-btn-arrow">›</div>
+    </button>
+
+    <button class="big-btn" onclick="goScreen('ai-help')">
+      <div class="big-btn-icon" style="background:#EDE9FE">🤖</div>
+      <div class="big-btn-text">
+        <div class="big-btn-title" id="h-btn4">Ask AI Helper</div>
+        <div class="big-btn-sub" id="h-btn4s">Get help, advice, wage info</div>
+      </div>
+      <div class="big-btn-arrow">›</div>
+    </button>
+  </div>
+
+  <div class="bottom-nav">
+    <button class="bn active" onclick="goScreen('home')">
+      <div class="bn-icon">🏠</div>
+      <div class="bn-lbl" id="nav1">HOME</div>
+    </button>
+    <button class="bn" onclick="goScreen('find-workers')">
+      <div class="bn-icon">👷</div>
+      <div class="bn-lbl" id="nav2">WORKERS</div>
+    </button>
+    <button class="bn" onclick="goScreen('post-job')">
+      <div class="bn-icon">➕</div>
+      <div class="bn-lbl" id="nav3">POST JOB</div>
+    </button>
+    <button class="bn" onclick="goScreen('ai-help')">
+      <div class="bn-icon">🤖</div>
+      <div class="bn-lbl" id="nav4">AI HELP</div>
+    </button>
+    <button class="bn" onclick="goScreen('my-profile')">
+      <div class="bn-icon">👤</div>
+      <div class="bn-lbl" id="nav5">PROFILE</div>
+    </button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+  SCREEN: FIND WORKERS
+════════════════════════════════ -->
+<div class="screen" id="screen-find-workers">
+  <div class="topbar">
+    <button class="topbar-back" onclick="goScreen('home')">‹</button>
+    <div class="topbar-title" id="fw-title">Find Workers</div>
+    <div class="topbar-lang" id="lang-btns-fw"></div>
+  </div>
+  <div class="scroll-body">
+    <div class="form-group">
+      <select class="form-select" id="fw-trade-filter" onchange="renderWorkers()">
+        <option value="">All Trades</option>
+        <option value="Plumber">🔧 Plumber</option>
+        <option value="Electrician">⚡ Electrician</option>
+        <option value="Carpenter">🪚 Carpenter</option>
+        <option value="Painter">🎨 Painter</option>
+        <option value="Mason">🧱 Mason</option>
+        <option value="Welder">🔩 Welder</option>
+        <option value="Helper">🏗 Helper</option>
+        <option value="Cook">🍳 Cook</option>
+        <option value="Driver">🚛 Driver</option>
+      </select>
+    </div>
+    <div id="workers-list">
+      <div class="empty-state">
+        <div class="spinner"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+  SCREEN: WORKER PROFILE DETAIL
+════════════════════════════════ -->
+<div class="screen" id="screen-worker-detail">
+  <div class="topbar">
+    <button class="topbar-back" onclick="goScreen('find-workers')">‹</button>
+    <div class="topbar-title" id="wd-topbar-title">Worker Profile</div>
+  </div>
+  <div class="scroll-body" style="padding:0 0 80px 0">
+    <div id="worker-detail-content"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+  SCREEN: REGISTER AS WORKER
+════════════════════════════════ -->
+<div class="screen" id="screen-register">
+  <div class="topbar">
+    <button class="topbar-back" onclick="goScreen('home')">‹</button>
+    <div class="topbar-title" id="reg-title">Register as Worker</div>
+    <div class="topbar-lang" id="lang-btns-reg"></div>
+  </div>
+  <div class="scroll-body">
+
+    <button class="voice-btn" id="voice-reg-btn" onclick="startVoiceInput('reg')">
+      🎙 <span id="voice-reg-text">Speak to fill form</span>
+    </button>
+
+    <div class="form-group">
+      <div class="form-label" id="reg-lbl-name">👤 Your Full Name</div>
+      <input class="form-input" id="reg-name" placeholder="Ramesh Kumar" type="text">
+    </div>
+
+    <div class="form-group">
+      <div class="form-label" id="reg-lbl-phone">📞 Mobile Number</div>
+      <input class="form-input" id="reg-phone" placeholder="9876543210" type="tel" maxlength="10">
+    </div>
+
+    <div class="form-group">
+      <div class="form-label" id="reg-lbl-trade">🛠 Your Trade / Skill</div>
+      <div class="trade-grid" id="trade-grid"></div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-label" id="reg-lbl-exp">📅 Experience (years)</div>
+      <select class="form-select" id="reg-exp">
+        <option value="0-1">Less than 1 year</option>
+        <option value="1-3">1–3 years</option>
+        <option value="3-5">3–5 years</option>
+        <option value="5-10">5–10 years</option>
+        <option value="10+">10+ years</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <div class="form-label" id="reg-lbl-area">📍 Your Area / Location</div>
+      <input class="form-input" id="reg-area" placeholder="Dharampeth, Nagpur" type="text">
+    </div>
+
+    <div class="form-group">
+      <div class="form-label" id="reg-lbl-wage">💰 Daily Wage (₹)</div>
+      <div class="wage-display">
+        <div class="wage-num" id="reg-wage-val">₹600</div>
+        <div class="wage-per" id="reg-wage-per">per day</div>
+      </div>
+      <input type="range" min="300" max="2000" value="600" step="50" id="reg-wage-slider"
+        oninput="document.getElementById('reg-wage-val').textContent='₹'+this.value">
+    </div>
+
+    <div class="form-group">
+      <div class="form-label" id="reg-lbl-lang">🗣 Languages You Speak</div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <label style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;cursor:pointer">
+          <input type="checkbox" id="lang-hindi" style="width:18px;height:18px;accent-color:var(--orange)"> हिंदी
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;cursor:pointer">
+          <input type="checkbox" id="lang-marathi" style="width:18px;height:18px;accent-color:var(--orange)"> मराठी
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;cursor:pointer">
+          <input type="checkbox" id="lang-english" style="width:18px;height:18px;accent-color:var(--orange)"> English
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;cursor:pointer">
+          <input type="checkbox" id="lang-telugu" style="width:18px;height:18px;accent-color:var(--orange)"> తెలుగు
+        </label>
+      </div>
+    </div>
+
+    <button class="submit-btn" id="reg-submit" onclick="registerWorker()" id="reg-btn">
+      ✅ Register Now
+    </button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+  SCREEN: POST A JOB
+════════════════════════════════ -->
+<div class="screen" id="screen-post-job">
+  <div class="topbar">
+    <button class="topbar-back" onclick="goScreen('home')">‹</button>
+    <div class="topbar-title" id="pj-title">Post a Job</div>
+    <div class="topbar-lang" id="lang-btns-pj"></div>
+  </div>
+  <div class="scroll-body">
+
+    <button class="voice-btn" id="voice-pj-btn" onclick="startVoiceInput('pj')">
+      🎙 <span id="voice-pj-text">Speak to describe job</span>
+    </button>
+
+    <div class="form-group">
+      <div class="form-label" id="pj-lbl-title">📋 Job Title</div>
+      <input class="form-input" id="pj-title-input" placeholder="e.g. Plumber needed urgently" type="text">
+    </div>
+
+    <div class="form-group">
+      <div class="form-label" id="pj-lbl-trade">🛠 Trade Needed</div>
+      <select class="form-select" id="pj-trade">
+        <option value="">Select trade…</option>
+        <option value="Plumber">🔧 Plumber</option>
+        <option value="Electrician">⚡ Electrician</option>
+        <option value="Carpenter">🪚 Carpenter</option>
+        <option value="Painter">🎨 Painter</option>
+        <option value="Mason">🧱 Mason</option>
+        <option value="Welder">🔩 Welder</option>
+        <option value="Helper">🏗 Helper</option>
+        <option value="Cook">🍳 Cook</option>
+        <option value="Driver">🚛 Driver</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <div class="form-label" id="pj-lbl-desc">📝 Describe the Work</div>
+      <textarea class="form-input" id="pj-desc" placeholder="What work needs to be done? E.g. Fix water pipe leakage in bathroom, 1 floor house…" rows="4"></textarea>
+    </div>
+
+    <div class="form-group">
+      <div class="form-label" id="pj-lbl-loc">📍 Location</div>
+      <input class="form-input" id="pj-loc" placeholder="Area and city, e.g. Civil Lines, Nagpur" type="text">
+    </div>
+
+    <div class="form-group">
+      <div class="form-label" id="pj-lbl-wage">💰 Wage Offered (₹/day)</div>
+      <div class="wage-display">
+        <div class="wage-num" id="pj-wage-val">₹700</div>
+        <div class="wage-per" id="pj-wage-per">per day</div>
+      </div>
+      <input type="range" min="300" max="2000" value="700" step="50" id="pj-wage-slider"
+        oninput="document.getElementById('pj-wage-val').textContent='₹'+this.value">
+    </div>
+
+    <div class="form-group">
+      <div class="form-label" id="pj-lbl-phone">📞 Your Contact Number</div>
+      <input class="form-input" id="pj-phone" placeholder="9876543210" type="tel" maxlength="10">
+    </div>
+
+    <div class="form-group">
+      <div class="form-label" id="pj-lbl-urgent">🔴 Is this urgent?</div>
+      <div style="display:flex;gap:10px">
+        <label style="flex:1;display:flex;align-items:center;gap:8px;padding:13px;border:2px solid var(--border);border-radius:12px;cursor:pointer;font-size:15px;font-weight:700">
+          <input type="radio" name="urgent" value="yes" style="width:18px;height:18px;accent-color:var(--orange)"> Yes — Urgent
+        </label>
+        <label style="flex:1;display:flex;align-items:center;gap:8px;padding:13px;border:2px solid var(--border);border-radius:12px;cursor:pointer;font-size:15px;font-weight:700">
+          <input type="radio" name="urgent" value="no" checked style="width:18px;height:18px;accent-color:var(--orange)"> No — Normal
+        </label>
+      </div>
+    </div>
+
+    <button class="submit-btn" onclick="postJob()">📋 Post This Job</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+  SCREEN: AI HELPER
+════════════════════════════════ -->
+<div class="screen" id="screen-ai-help">
+  <div class="topbar">
+    <button class="topbar-back" onclick="goScreen('home')">‹</button>
+    <div class="topbar-title" id="ai-title">🤖 AI Helper</div>
+    <div class="topbar-lang" id="lang-btns-ai"></div>
+  </div>
+  <div class="scroll-body" style="display:flex;flex-direction:column">
+
+    <div style="background:var(--orange-l);border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:var(--orange-d);font-weight:600;border:1px solid rgba(240,90,26,0.2)">
+      🤖 <span id="ai-intro">Ask me anything — wage rates, worker rights, how to find work, documents needed…</span>
+    </div>
+
+    <!-- Quick questions -->
+    <div style="margin-bottom:14px">
+      <div class="sec-lbl" id="ai-quick-lbl">QUICK QUESTIONS</div>
+      <div id="quick-questions" style="display:flex;flex-direction:column;gap:7px"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Chat -->
+    <div class="chat-wrap" id="chat-messages"></div>
+
+    <!-- Voice + input -->
+    <div class="chat-input-row">
+      <button class="chat-voice-btn" id="chat-voice-btn" onclick="startVoiceInput('chat')" title="Voice input">🎙</button>
+      <input class="chat-input" id="chat-input" placeholder="Type your question…" onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()">➤</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+  SCREEN: MY PROFILE
+════════════════════════════════ -->
+<div class="screen" id="screen-my-profile">
+  <div class="topbar">
+    <button class="topbar-back" onclick="goScreen('home')">‹</button>
+    <div class="topbar-title" id="mp-title">My Profile</div>
+    <div class="topbar-lang" id="lang-btns-mp"></div>
+  </div>
+  <div class="scroll-body">
+    <div id="my-profile-content"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+  JAVASCRIPT — FULL WORKING LOGIC
+════════════════════════════════════════════ -->
+<script>
+/* ═══════════════════════════════════════════
+   TRANSLATIONS
+═══════════════════════════════════════════ */
+const LANG = {
+  en: {
+    greeting: 'Good morning 👋', title: 'Find Work.\nGet Paid.', sub: 'Connect workers with employers. Fast, simple, trusted.',
+    stat1: 'Workers', stat2: 'Jobs', stat3: 'Rating',
+    choose: 'WHAT DO YOU WANT TO DO?',
+    btn1: 'Find a Worker', btn1s: 'Plumber, Electrician, Painter…',
+    btn2: 'I am a Worker', btn2s: 'Register and find work near you',
+    btn3: 'Post a Job',    btn3s: 'Tell us what work you need done',
+    btn4: 'Ask AI Helper', btn4s: 'Get help, advice, wage info',
+    nav1:'HOME', nav2:'WORKERS', nav3:'POST JOB', nav4:'AI HELP', nav5:'PROFILE',
+    fwTitle: 'Find Workers',
+    regTitle: 'Register as Worker', regBtn: '✅ Register Now',
+    regLblName:'👤 Your Full Name', regLblPhone:'📞 Mobile Number', regLblTrade:'🛠 Your Trade / Skill',
+    regLblExp:'📅 Experience (years)', regLblArea:'📍 Your Area / Location',
+    regLblWage:'💰 Daily Wage (₹)', regLblLang:'🗣 Languages You Speak',
+    pjTitle: 'Post a Job',
+    pjLblTitle:'📋 Job Title', pjLblTrade:'🛠 Trade Needed', pjLblDesc:'📝 Describe the Work',
+    pjLblLoc:'📍 Location', pjLblWage:'💰 Wage Offered (₹/day)', pjLblPhone:'📞 Your Contact Number',
+    pjLblUrgent:'🔴 Is this urgent?',
+    aiTitle: '🤖 AI Helper', aiIntro: 'Ask me anything — wage rates, worker rights, how to find work, documents needed…',
+    aiQuickLbl: 'QUICK QUESTIONS',
+    mpTitle: 'My Profile',
+    voiceSpeak: 'Speak to fill form', voiceListening: '🔴 Listening… speak now',
+    wagePer: 'per day',
+    callBtn: '📞 Call Now', hireBtn: '✅ Hire Now',
+    availNow: 'Available Now', availSoon: 'Tomorrow', availBusy: 'Busy',
+    verified: '✓ Verified',
+    quickQs: [
+      'What is the minimum wage for a plumber?',
+      'How do I get Aadhaar card?',
+      'What documents do I need to register?',
+      'How do I report non-payment of wages?',
+    ],
+    systemPrompt: `You are KaamSetu AI, a helpful assistant for daily wage workers and employers in India. 
+You help with: wage information, worker rights under Indian labor law, how to find work, 
+required documents, ESIC, PF, minimum wage acts, and general advice in simple language.
+Keep answers SHORT (2-3 sentences), simple, and practical. Current language: English.`
+  },
+  hi: {
+    greeting: 'सुप्रभात 👋', title: 'काम खोजें।\nपैसे पाएं।', sub: 'मजदूरों को नियोक्ताओं से जोड़ें। तेज़, सरल, भरोसेमंद।',
+    stat1: 'कामगार', stat2: 'नौकरियां', stat3: 'रेटिंग',
+    choose: 'आप क्या करना चाहते हैं?',
+    btn1: 'कामगार खोजें', btn1s: 'प्लंबर, इलेक्ट्रीशियन, पेंटर…',
+    btn2: 'मैं कामगार हूं', btn2s: 'रजिस्टर करें और काम पाएं',
+    btn3: 'काम पोस्ट करें', btn3s: 'बताएं आपको क्या काम चाहिए',
+    btn4: 'AI से पूछें', btn4s: 'मदद, सलाह, मजदूरी जानकारी',
+    nav1:'होम', nav2:'कामगार', nav3:'काम', nav4:'AI मदद', nav5:'प्रोफाइल',
+    fwTitle: 'कामगार खोजें',
+    regTitle: 'कामगार के रूप में रजिस्टर करें', regBtn: '✅ अभी रजिस्टर करें',
+    regLblName:'👤 आपका पूरा नाम', regLblPhone:'📞 मोबाइल नंबर', regLblTrade:'🛠 आपका काम / हुनर',
+    regLblExp:'📅 अनुभव (साल)', regLblArea:'📍 आपका इलाका',
+    regLblWage:'💰 दैनिक मजदूरी (₹)', regLblLang:'🗣 आप कौन सी भाषाएं बोलते हैं',
+    pjTitle: 'काम पोस्ट करें',
+    pjLblTitle:'📋 काम का शीर्षक', pjLblTrade:'🛠 किस काम की जरूरत है', pjLblDesc:'📝 काम का विवरण',
+    pjLblLoc:'📍 जगह', pjLblWage:'💰 मजदूरी (₹/दिन)', pjLblPhone:'📞 आपका नंबर',
+    pjLblUrgent:'🔴 क्या यह जरूरी है?',
+    aiTitle: '🤖 AI सहायक', aiIntro: 'कुछ भी पूछें — मजदूरी, अधिकार, काम कैसे खोजें, कौन से कागज चाहिए…',
+    aiQuickLbl: 'जल्दी सवाल',
+    mpTitle: 'मेरा प्रोफाइल',
+    voiceSpeak: 'बोलकर फॉर्म भरें', voiceListening: '🔴 सुन रहा हूं… बोलें',
+    wagePer: 'प्रति दिन',
+    callBtn: '📞 कॉल करें', hireBtn: '✅ काम दें',
+    availNow: 'अभी उपलब्ध', availSoon: 'कल से', availBusy: 'व्यस्त',
+    verified: '✓ सत्यापित',
+    quickQs: [
+      'प्लंबर की न्यूनतम मजदूरी क्या है?',
+      'आधार कार्ड कैसे बनवाएं?',
+      'रजिस्टर के लिए कौन से कागज चाहिए?',
+      'मजदूरी न मिले तो क्या करें?',
+    ],
+    systemPrompt: `आप KaamSetu AI हैं, भारत में दैनिक मजदूरों और नियोक्ताओं के लिए सहायक।
+मजदूरी, श्रम कानून, काम खोजने के तरीके, दस्तावेज़, ESIC, PF, न्यूनतम वेतन अधिनियम पर सरल सलाह दें।
+उत्तर बहुत छोटा (2-3 वाक्य), सरल और व्यावहारिक हो। भाषा: हिंदी।`
+  },
+  mr: {
+    greeting: 'सुप्रभात 👋', title: 'काम शोधा।\nपैसे मिळवा।', sub: 'कामगारांना मालकांशी जोडा. जलद, सोपे, विश्वासू.',
+    stat1: 'कामगार', stat2: 'कामे', stat3: 'रेटिंग',
+    choose: 'तुम्हाला काय करायचे आहे?',
+    btn1: 'कामगार शोधा', btn1s: 'प्लंबर, इलेक्ट्रिशियन, पेंटर…',
+    btn2: 'मी कामगार आहे', btn2s: 'नोंदणी करा आणि काम मिळवा',
+    btn3: 'काम पोस्ट करा', btn3s: 'तुम्हाला काय काम हवे ते सांगा',
+    btn4: 'AI ला विचारा', btn4s: 'मदत, सल्ला, मजुरी माहिती',
+    nav1:'मुख्यपृष्ठ', nav2:'कामगार', nav3:'काम', nav4:'AI मदत', nav5:'प्रोफाइल',
+    fwTitle: 'कामगार शोधा',
+    regTitle: 'कामगार म्हणून नोंदणी', regBtn: '✅ आत्ता नोंदणी करा',
+    regLblName:'👤 तुमचे पूर्ण नाव', regLblPhone:'📞 मोबाइल नंबर', regLblTrade:'🛠 तुमचे काम / कौशल्य',
+    regLblExp:'📅 अनुभव (वर्षे)', regLblArea:'📍 तुमचा परिसर',
+    regLblWage:'💰 दैनंदिन मजुरी (₹)', regLblLang:'🗣 तुम्ही कोणत्या भाषा बोलता',
+    pjTitle: 'काम पोस्ट करा',
+    pjLblTitle:'📋 कामाचे नाव', pjLblTrade:'🛠 कोणता कामगार हवा', pjLblDesc:'📝 कामाचे वर्णन',
+    pjLblLoc:'📍 ठिकाण', pjLblWage:'💰 मजुरी (₹/दिवस)', pjLblPhone:'📞 तुमचा नंबर',
+    pjLblUrgent:'🔴 हे तातडीचे आहे का?',
+    aiTitle: '🤖 AI सहाय्यक', aiIntro: 'काहीही विचारा — मजुरी, हक्क, काम कसे शोधावे…',
+    aiQuickLbl: 'झटपट प्रश्न',
+    mpTitle: 'माझे प्रोफाइल',
+    voiceSpeak: 'बोलून फॉर्म भरा', voiceListening: '🔴 ऐकतोय… बोला',
+    wagePer: 'दररोज',
+    callBtn: '📞 फोन करा', hireBtn: '✅ काम द्या',
+    availNow: 'आत्ता उपलब्ध', availSoon: 'उद्यापासून', availBusy: 'व्यस्त',
+    verified: '✓ सत्यापित',
+    quickQs: [
+      'प्लंबरची किमान मजुरी किती?',
+      'आधार कार्ड कसे काढावे?',
+      'नोंदणीसाठी कोणते कागद लागतात?',
+      'मजुरी न मिळाल्यास काय करावे?',
+    ],
+    systemPrompt: `तुम्ही KaamSetu AI आहात, भारतातील दैनंदिन मजुरांसाठी सहाय्यक.
+मजुरी, कामगार कायदे, काम शोधणे, कागदपत्रे याबद्दल साध्या भाषेत सांगा.
+उत्तर खूप लहान (2-3 वाक्ये), सोपे आणि व्यावहारिक असावे. भाषा: मराठी.`
+  }
+};
+
+const TRADES = [
+  {icon:'🔧', name:'Plumber', hi:'प्लंबर', mr:'प्लंबर'},
+  {icon:'⚡', name:'Electrician', hi:'इलेक्ट्रीशियन', mr:'इलेक्ट्रिशियन'},
+  {icon:'🪚', name:'Carpenter', hi:'बढ़ई', mr:'सुतार'},
+  {icon:'🎨', name:'Painter', hi:'पेंटर', mr:'रंगारी'},
+  {icon:'🧱', name:'Mason', hi:'राजमिस्त्री', mr:'गवंडी'},
+  {icon:'🔩', name:'Welder', hi:'वेल्डर', mr:'वेल्डर'},
+  {icon:'🏗', name:'Helper', hi:'मजदूर', mr:'मजूर'},
+  {icon:'🍳', name:'Cook', hi:'रसोइया', mr:'स्वयंपाकी'},
+  {icon:'🚛', name:'Driver', hi:'ड्राइवर', mr:'ड्रायव्हर'},
+  {icon:'🌿', name:'Gardener', hi:'माली', mr:'माळी'},
+];
+
+const AVATAR_COLORS = ['#F05A1A','#16A34A','#1D6FB8','#7C3AED','#DC2626','#D97706','#0891B2','#059669'];
+
+/* ═══════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════ */
+let currentLang = 'en';
+let selectedTrade = '';
+let currentWorker = null;
+let chatHistory = [];
+let isListening = false;
+let recognition = null;
+
+// Load / init data
+function loadData() {
+  const def = JSON.parse(JSON.stringify([
+    {id:1, name:'Ramesh Yadav', phone:'9876501234', trade:'Plumber', exp:'5-10', area:'Dharampeth, Nagpur', wage:750, rating:4.9, jobs:147, avail:'now', verified:true, color:AVATAR_COLORS[0], langs:['Hindi','Marathi']},
+    {id:2, name:'Suresh Kumar', phone:'9876502345', trade:'Electrician', exp:'5-10', area:'Sitabuldi, Nagpur', wage:950, rating:4.8, jobs:203, avail:'now', verified:true, color:AVATAR_COLORS[2], langs:['Hindi','English']},
+    {id:3, name:'Mohammad Iqbal', phone:'9876503456', trade:'Carpenter', exp:'3-5', area:'Gandhibagh, Nagpur', wage:650, rating:4.7, jobs:89, avail:'soon', verified:true, color:AVATAR_COLORS[1], langs:['Hindi','Urdu']},
+    {id:4, name:'Pramod Thakur', phone:'9876504567', trade:'Painter', exp:'10+', area:'Manish Nagar, Nagpur', wage:700, rating:4.9, jobs:312, avail:'now', verified:true, color:AVATAR_COLORS[3], langs:['Hindi','Marathi']},
+    {id:5, name:'Deepak Meshram', phone:'9876505678', trade:'Mason', exp:'5-10', area:'Hingna, Nagpur', wage:800, rating:4.6, jobs:178, avail:'now', verified:false, color:AVATAR_COLORS[4], langs:['Hindi','Marathi']},
+    {id:6, name:'Santosh Bhalerao', phone:'9876506789', trade:'Welder', exp:'10+', area:'Butibori, Nagpur', wage:1100, rating:5.0, jobs:67, avail:'busy', verified:true, color:AVATAR_COLORS[5], langs:['Marathi']},
+    {id:7, name:'Anita Kamble', phone:'9876507890', trade:'Cook', exp:'3-5', area:'Itwari, Nagpur', wage:550, rating:4.8, jobs:94, avail:'now', verified:true, color:AVATAR_COLORS[6], langs:['Hindi','Marathi']},
+    {id:8, name:'Raju Tiwari', phone:'9876508901', trade:'Helper', exp:'1-3', area:'Wathoda, Nagpur', wage:450, rating:4.5, jobs:56, avail:'now', verified:false, color:AVATAR_COLORS[7], langs:['Hindi']},
+  ]));
+  const saved = localStorage.getItem('ks_workers');
+  return saved ? JSON.parse(saved) : def;
+}
+
+function loadJobs() {
+  const saved = localStorage.getItem('ks_jobs');
+  return saved ? JSON.parse(saved) : [];
+}
+
+let workers = loadData();
+let jobs = loadJobs();
+
+/* ═══════════════════════════════════════════
+   LANGUAGE SYSTEM
+═══════════════════════════════════════════ */
+function setLang(lang) {
+  currentLang = lang;
+  const t = LANG[lang];
+
+  // Update all lang buttons
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+
+  // Home screen
+  setText('h-greeting', t.greeting);
+  setText('h-title', t.title.replace('\n','<br>'));
+  setText('h-sub', t.sub);
+  setText('h-stat1', t.stat1);
+  setText('h-stat2', t.stat2);
+  setText('h-stat3', t.stat3);
+  setText('h-choose', t.choose);
+  setText('h-btn1', t.btn1); setText('h-btn1s', t.btn1s);
+  setText('h-btn2', t.btn2); setText('h-btn2s', t.btn2s);
+  setText('h-btn3', t.btn3); setText('h-btn3s', t.btn3s);
+  setText('h-btn4', t.btn4); setText('h-btn4s', t.btn4s);
+  setText('nav1',t.nav1); setText('nav2',t.nav2); setText('nav3',t.nav3);
+  setText('nav4',t.nav4); setText('nav5',t.nav5);
+
+  // Find workers
+  setText('fw-title', t.fwTitle);
+
+  // Register
+  setText('reg-title', t.regTitle);
+  setText('reg-submit', t.regBtn);
+  setText('reg-lbl-name', t.regLblName); setText('reg-lbl-phone', t.regLblPhone);
+  setText('reg-lbl-trade', t.regLblTrade); setText('reg-lbl-exp', t.regLblExp);
+  setText('reg-lbl-area', t.regLblArea); setText('reg-lbl-wage', t.regLblWage);
+  setText('reg-lbl-lang', t.regLblLang);
+  setText('reg-wage-per', t.wagePer);
+  setText('voice-reg-text', t.voiceSpeak);
+
+  // Post job
+  setText('pj-title', t.pjTitle);
+  setText('pj-lbl-title', t.pjLblTitle); setText('pj-lbl-trade', t.pjLblTrade);
+  setText('pj-lbl-desc', t.pjLblDesc); setText('pj-lbl-loc', t.pjLblLoc);
+  setText('pj-lbl-wage', t.pjLblWage); setText('pj-lbl-phone', t.pjLblPhone);
+  setText('pj-lbl-urgent', t.pjLblUrgent);
+  setText('pj-wage-per', t.wagePer);
+  setText('voice-pj-text', t.voiceSpeak);
+
+  // AI
+  setText('ai-title', t.aiTitle);
+  setText('ai-intro', t.aiIntro);
+  setText('ai-quick-lbl', t.aiQuickLbl);
+
+  // Profile
+  setText('mp-title', t.mpTitle);
+
+  renderQuickQs();
+  renderWorkers();
+  renderTradeGrid();
+  updateStats();
+}
+
+function setText(id, html) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = html;
+}
+
+function getTradeName(trade) {
+  const t = TRADES.find(x => x.name === trade);
+  if (!t) return trade;
+  if (currentLang === 'hi') return t.hi;
+  if (currentLang === 'mr') return t.mr;
+  return t.name;
+}
+
+/* ═══════════════════════════════════════════
+   LANG BUTTONS (inject into multiple topbars)
+═══════════════════════════════════════════ */
+function buildLangBtns(containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = ['en','hi','mr'].map(l =>
+    `<button class="lang-btn ${l===currentLang?'active':''}" data-lang="${l}" onclick="setLang('${l}')">${l==='en'?'EN':l==='hi'?'हि':'म'}</button>`
+  ).join('');
+}
+
+function buildAllLangBtns() {
+  ['lang-btns-home','lang-btns-fw','lang-btns-reg','lang-btns-pj','lang-btns-ai','lang-btns-mp'].forEach(buildLangBtns);
+}
+
+/* ═══════════════════════════════════════════
+   SCREEN NAVIGATION
+═══════════════════════════════════════════ */
+function goScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+
+  // Update bottom nav active state (only for screens with bottom nav)
+  const navMap = { home:'home', 'find-workers':'find-workers', 'post-job':'post-job', 'ai-help':'ai-help', 'my-profile':'my-profile' };
+
+  buildAllLangBtns();
+
+  if (name === 'find-workers') renderWorkers();
+  if (name === 'my-profile') renderMyProfile();
+  if (name === 'ai-help') renderQuickQs();
+
+  window.scrollTo(0,0);
+}
+
+/* ═══════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════ */
+function updateStats() {
+  setText('stat-workers', workers.length);
+  setText('stat-jobs', jobs.length);
+}
+
+/* ═══════════════════════════════════════════
+   TRADE GRID
+═══════════════════════════════════════════ */
+function renderTradeGrid() {
+  const grid = document.getElementById('trade-grid');
+  if (!grid) return;
+  grid.innerHTML = TRADES.map(t => {
+    const name = currentLang==='hi' ? t.hi : currentLang==='mr' ? t.mr : t.name;
+    return `<button class="trade-chip ${selectedTrade===t.name?'selected':''}"
+      onclick="selectedTrade='${t.name}';renderTradeGrid()">
+      <span class="trade-chip-icon">${t.icon}</span>${name}
+    </button>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════
+   WORKERS LIST
+═══════════════════════════════════════════ */
+function renderWorkers() {
+  const container = document.getElementById('workers-list');
+  if (!container) return;
+
+  const filter = document.getElementById('fw-trade-filter');
+  const trade = filter ? filter.value : '';
+  const t = LANG[currentLang];
+
+  const filtered = trade ? workers.filter(w => w.trade === trade) : workers;
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">😔</div>
+      <div class="empty-title">${currentLang==='hi'?'कोई कामगार नहीं मिला':currentLang==='mr'?'कामगार सापडला नाही':'No workers found'}</div>
+      <div class="empty-sub">${currentLang==='hi'?'दूसरा ट्रेड चुनें':currentLang==='mr'?'दुसरा ट्रेड निवडा':'Try a different trade'}</div>
+    </div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(w => {
+    const availLabel = w.avail==='now' ? t.availNow : w.avail==='soon' ? t.availSoon : t.availBusy;
+    const availClass = w.avail==='now' ? 'avail-now' : w.avail==='soon' ? 'avail-soon' : 'avail-busy';
+    const initials = w.name.split(' ').map(x=>x[0]).join('').slice(0,2);
+    const tradeName = getTradeName(w.trade);
+    const tradeObj = TRADES.find(x => x.name === w.trade);
+    return `<div class="worker-card" onclick="showWorkerDetail(${w.id})">
+      <div class="wc-row1">
+        <div class="wc-avatar" style="background:${w.color}">
+          ${initials}
+          ${w.verified ? `<div class="wc-verified-badge">✓</div>` : ''}
+        </div>
+        <div class="wc-info">
+          <div class="wc-name">${w.name}</div>
+          <div class="wc-trade">${tradeObj?tradeObj.icon:''} ${tradeName}</div>
+          <div class="wc-loc">📍 ${w.area}</div>
+        </div>
+        <div class="wc-avail ${availClass}">${availLabel}</div>
+      </div>
+      <div class="wc-row2">
+        <div>
+          <div class="wc-rate">₹${w.wage} <span>/ ${currentLang==='hi'?'दिन':currentLang==='mr'?'दिवस':'day'}</span></div>
+          <div class="wc-rating">⭐ ${w.rating} (${w.jobs} ${currentLang==='hi'?'काम':currentLang==='mr'?'कामे':'jobs'})</div>
+        </div>
+        <button class="call-btn" onclick="event.stopPropagation(); makeCall('${w.phone}', '${w.name}')">
+          📞 ${t.callBtn ? t.callBtn.replace('📞 ','') : 'Call'}
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function showWorkerDetail(id) {
+  currentWorker = workers.find(w => w.id === id);
+  if (!currentWorker) return;
+  const w = currentWorker;
+  const t = LANG[currentLang];
+  const initials = w.name.split(' ').map(x=>x[0]).join('').slice(0,2);
+  const tradeName = getTradeName(w.trade);
+  const tradeObj = TRADES.find(x => x.name === w.trade);
+  const days = currentLang==='hi' ? ['सो','मं','बु','गु','शु','श','र'] :
+               currentLang==='mr' ? ['सो','मं','बु','गु','शु','श','र'] :
+               ['M','T','W','T','F','S','S'];
+  const avails = ['free','free','busy','free','free','free','half'];
+
+  setText('wd-topbar-title', w.name);
+
+  document.getElementById('worker-detail-content').innerHTML = `
+    <div class="profile-hero">
+      <div class="ph-avatar" style="background:${w.color}">${initials}</div>
+      <div class="ph-name">${w.name}</div>
+      <div class="ph-trade">${tradeObj?tradeObj.icon:''} ${tradeName}</div>
+      <div class="ph-badges">
+        ${w.verified ? `<span class="ph-badge">${t.verified}</span>` : ''}
+        <span class="ph-badge">⭐ ${w.rating}</span>
+        <span class="ph-badge">${w.jobs} ${currentLang==='hi'?'काम':currentLang==='mr'?'कामे':'jobs'}</span>
+      </div>
+      <div class="avail-strip">
+        ${days.map((d,i) => `<div class="avail-day ${avails[i]}">
+          <div class="avail-day-name">${d}</div>
+          ${avails[i]==='free'?'✓':avails[i]==='busy'?'✗':'½'}
+        </div>`).join('')}
+      </div>
+    </div>
+    <div style="padding:16px">
+      <div class="card">
+        <div class="card-head">📋 ${currentLang==='hi'?'जानकारी':currentLang==='mr'?'माहिती':'Details'}</div>
+        <div class="card-body">
+          <div class="info-row"><span class="info-key">📍 ${currentLang==='hi'?'इलाका':currentLang==='mr'?'परिसर':'Area'}</span><span class="info-val">${w.area}</span></div>
+          <div class="info-row"><span class="info-key">📅 ${currentLang==='hi'?'अनुभव':currentLang==='mr'?'अनुभव':'Experience'}</span><span class="info-val">${w.exp} ${currentLang==='hi'?'साल':currentLang==='mr'?'वर्षे':'yrs'}</span></div>
+          <div class="info-row"><span class="info-key">💰 ${currentLang==='hi'?'मजदूरी':currentLang==='mr'?'मजुरी':'Wage'}</span><span class="info-val" style="color:var(--green)">₹${w.wage}/${currentLang==='hi'?'दिन':currentLang==='mr'?'दिवस':'day'}</span></div>
+          <div class="info-row"><span class="info-key">🗣 ${currentLang==='hi'?'भाषाएं':currentLang==='mr'?'भाषा':'Languages'}</span><span class="info-val">${(w.langs||['Hindi']).join(', ')}</span></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:4px">
+        <button class="submit-btn" style="flex:1;margin-top:0" onclick="makeCall('${w.phone}','${w.name}')">📞 ${t.callBtn||'Call Now'}</button>
+        <button class="submit-btn" style="flex:1;margin-top:0;background:var(--green)" onclick="hireWorker('${w.name}')">✅ ${t.hireBtn||'Hire Now'}</button>
+      </div>
+    </div>`;
+
+  goScreen('worker-detail');
+}
+
+function makeCall(phone, name) {
+  showToast(`📞 Calling ${name}…`);
+  window.location.href = `tel:${phone}`;
+}
+
+function hireWorker(name) {
+  showToast(`✅ ${name} ${currentLang==='hi'?'को काम दिया गया':currentLang==='mr'?'ला काम दिले':'hired successfully'}!`);
+}
+
+/* ═══════════════════════════════════════════
+   REGISTER WORKER
+═══════════════════════════════════════════ */
+function registerWorker() {
+  const name = document.getElementById('reg-name').value.trim();
+  const phone = document.getElementById('reg-phone').value.trim();
+  const exp = document.getElementById('reg-exp').value;
+  const area = document.getElementById('reg-area').value.trim();
+  const wage = parseInt(document.getElementById('reg-wage-slider').value);
+
+  if (!name || !phone || !selectedTrade || !area) {
+    showToast(currentLang==='hi'?'❌ सभी जानकारी भरें':currentLang==='mr'?'❌ सर्व माहिती भरा':'❌ Please fill all fields');
+    return;
+  }
+  if (phone.length !== 10) {
+    showToast(currentLang==='hi'?'❌ 10 अंकों का नंबर दें':currentLang==='mr'?'❌ 10 अंकी नंबर द्या':'❌ Enter 10-digit number');
+    return;
+  }
+
+  const langs = [];
+  if (document.getElementById('lang-hindi').checked) langs.push('Hindi');
+  if (document.getElementById('lang-marathi').checked) langs.push('Marathi');
+  if (document.getElementById('lang-english').checked) langs.push('English');
+  if (document.getElementById('lang-telugu').checked) langs.push('Telugu');
+
+  const newWorker = {
+    id: Date.now(), name, phone, trade: selectedTrade, exp, area, wage,
+    rating: 0, jobs: 0, avail: 'now', verified: false,
+    color: AVATAR_COLORS[Math.floor(Math.random() * AVATAR_COLORS.length)],
+    langs: langs.length ? langs : ['Hindi']
+  };
+
+  workers.push(newWorker);
+  localStorage.setItem('ks_workers', JSON.stringify(workers));
+  updateStats();
+
+  // Clear form
+  document.getElementById('reg-name').value = '';
+  document.getElementById('reg-phone').value = '';
+  document.getElementById('reg-area').value = '';
+  selectedTrade = '';
+  renderTradeGrid();
+
+  showToast(currentLang==='hi'?'✅ रजिस्टर हो गए! काम मिलेगा।':currentLang==='mr'?'✅ नोंदणी झाली! काम मिळेल.':'✅ Registered! You will get work.');
+  setTimeout(() => goScreen('find-workers'), 1500);
+}
+
+/* ═══════════════════════════════════════════
+   POST JOB
+═══════════════════════════════════════════ */
+function postJob() {
+  const title = document.getElementById('pj-title-input').value.trim();
+  const trade = document.getElementById('pj-trade').value;
+  const desc = document.getElementById('pj-desc').value.trim();
+  const loc = document.getElementById('pj-loc').value.trim();
+  const wage = parseInt(document.getElementById('pj-wage-slider').value);
+  const phone = document.getElementById('pj-phone').value.trim();
+  const urgent = document.querySelector('input[name="urgent"]:checked')?.value === 'yes';
+
+  if (!title || !trade || !loc || !phone) {
+    showToast(currentLang==='hi'?'❌ सभी जानकारी भरें':currentLang==='mr'?'❌ सर्व माहिती भरा':'❌ Please fill all fields');
+    return;
+  }
+
+  const job = { id: Date.now(), title, trade, desc, loc, wage, phone, urgent, time: new Date().toLocaleString() };
+  jobs.push(job);
+  localStorage.setItem('ks_jobs', JSON.stringify(jobs));
+
+  document.getElementById('pj-title-input').value = '';
+  document.getElementById('pj-desc').value = '';
+  document.getElementById('pj-loc').value = '';
+  document.getElementById('pj-phone').value = '';
+
+  showToast(currentLang==='hi'?'✅ काम पोस्ट हो गया!':currentLang==='mr'?'✅ काम पोस्ट झाले!':'✅ Job posted! Workers will contact you.');
+  setTimeout(() => goScreen('find-workers'), 1500);
+}
+
+/* ═══════════════════════════════════════════
+   MY PROFILE
+═══════════════════════════════════════════ */
+function renderMyProfile() {
+  const el = document.getElementById('my-profile-content');
+  if (!el) return;
+  const myJobs = jobs.slice(-3).reverse();
+
+  el.innerHTML = `
+    <div class="card" style="margin-bottom:12px">
+      <div class="card-head">👷 ${currentLang==='hi'?'मेरी जानकारी':currentLang==='mr'?'माझी माहिती':'My Info'}</div>
+      <div class="card-body">
+        <div class="empty-state" style="padding:20px">
+          <div class="empty-icon">👤</div>
+          <div class="empty-title">${currentLang==='hi'?'अभी रजिस्टर नहीं किया':currentLang==='mr'?'अजून नोंदणी नाही':'Not registered yet'}</div>
+          <div class="empty-sub" style="margin-bottom:14px">${currentLang==='hi'?'कामगार के रूप में रजिस्टर करें':currentLang==='mr'?'कामगार म्हणून नोंदणी करा':'Register as a worker to get jobs'}</div>
+          <button class="submit-btn" style="max-width:240px;margin:0 auto;display:block;font-size:15px;padding:13px" onclick="goScreen('register')">
+            ✅ ${LANG[currentLang].regBtn}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">📋 ${currentLang==='hi'?'पोस्ट किए गए काम':currentLang==='mr'?'पोस्ट केलेली कामे':'Jobs Posted by You'}</div>
+      <div class="card-body" style="padding:0">
+        ${myJobs.length === 0
+          ? `<div style="padding:20px;text-align:center;color:var(--ink3);font-size:14px">${currentLang==='hi'?'कोई काम पोस्ट नहीं किया':currentLang==='mr'?'कोणतेही काम पोस्ट नाही':'No jobs posted yet'}</div>`
+          : myJobs.map(j => `
+            <div style="padding:12px 14px;border-bottom:1px solid var(--border)">
+              <div style="font-size:15px;font-weight:800;margin-bottom:3px">${j.title}</div>
+              <div style="font-size:12px;color:var(--ink3);margin-bottom:6px">📍 ${j.loc} · 💰 ₹${j.wage}/day</div>
+              <div style="display:flex;gap:7px;align-items:center">
+                ${j.urgent ? `<span class="pill pill-red">🔴 Urgent</span>` : ''}
+                <span class="pill pill-blue">🛠 ${j.trade}</span>
+                <button onclick="makeCall('${j.phone}','')" style="margin-left:auto;background:var(--green);color:#fff;border:none;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">📞</button>
+              </div>
+            </div>`).join('')}
+      </div>
+    </div>
+    <div style="margin-top:12px">
+      <button class="submit-btn" onclick="goScreen('home')" style="background:var(--ink3)">
+        🏠 ${currentLang==='hi'?'होम पर जाएं':currentLang==='mr'?'मुख्यपृष्ठावर जा':'Go to Home'}
+      </button>
+    </div>`;
+}
+
+/* ═══════════════════════════════════════════
+   AI HELPER — REAL API CALLS
+═══════════════════════════════════════════ */
+function renderQuickQs() {
+  const el = document.getElementById('quick-questions');
+  if (!el) return;
+  const qs = LANG[currentLang].quickQs;
+  el.innerHTML = qs.map(q => `
+    <button onclick="sendChatMsg('${q.replace(/'/g,"\\'")}', true)"
+      style="background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:13px 15px;
+             font-size:14px;font-weight:600;color:var(--ink2);text-align:left;cursor:pointer;
+             font-family:inherit;transition:all 0.13s;width:100%"
+      onmouseover="this.style.borderColor='var(--orange)'" onmouseout="this.style.borderColor='var(--border)'">
+      💬 ${q}
+    </button>`).join('');
+}
+
+function sendChat() {
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+  sendChatMsg(msg, true);
+}
+
+async function sendChatMsg(msg, isUser) {
+  const container = document.getElementById('chat-messages');
+
+  if (isUser) {
+    container.innerHTML += `<div class="chat-msg user">${msg}</div>`;
+    chatHistory.push({ role: 'user', content: msg });
+  }
+
+  // Show typing
+  const typingId = 'typing-' + Date.now();
+  container.innerHTML += `<div class="chat-msg ai" id="${typingId}">
+    <div class="ai-label">KaamSetu AI</div>
+    <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+  </div>`;
+  container.scrollTop = container.scrollHeight;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        system: LANG[currentLang].systemPrompt,
+        messages: chatHistory.slice(-8)
+      })
+    });
+
+    const data = await resp.json();
+    const reply = data.content?.[0]?.text || (currentLang==='hi' ? 'माफ करें, कोई जवाब नहीं मिला।' : currentLang==='mr' ? 'माफ करा, उत्तर मिळाले नाही.' : 'Sorry, no response received.');
+
+    document.getElementById(typingId).remove();
+    container.innerHTML += `<div class="chat-msg ai">
+      <div class="ai-label">KaamSetu AI</div>
+      ${reply.replace(/\n/g,'<br>')}
+    </div>`;
+    chatHistory.push({ role: 'assistant', content: reply });
+
+    // Speak the reply
+    if ('speechSynthesis' in window) {
+      const utter = new SpeechSynthesisUtterance(reply);
+      utter.lang = currentLang === 'hi' ? 'hi-IN' : currentLang === 'mr' ? 'mr-IN' : 'en-IN';
+      utter.rate = 0.85;
+      window.speechSynthesis.speak(utter);
+    }
+
+  } catch(e) {
+    document.getElementById(typingId).remove();
+    const errMsg = currentLang==='hi' ? '❌ नेटवर्क एरर। फिर कोशिश करें।' :
+                   currentLang==='mr' ? '❌ नेटवर्क एरर. पुन्हा प्रयत्न करा.' :
+                   '❌ Network error. Please try again.';
+    container.innerHTML += `<div class="chat-msg ai">${errMsg}</div>`;
+  }
+
+  container.scrollTop = container.scrollHeight;
+}
+
+/* ═══════════════════════════════════════════
+   VOICE INPUT — Web Speech API
+═══════════════════════════════════════════ */
+function startVoiceInput(context) {
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    showToast(currentLang==='hi'?'❌ आपका ब्राउज़र वॉयस सपोर्ट नहीं करता':
+              currentLang==='mr'?'❌ तुमचा ब्राउझर व्हॉईस सपोर्ट करत नाही':
+              '❌ Voice not supported in this browser. Try Chrome.');
+    return;
+  }
+
+  if (isListening) {
+    recognition?.stop();
+    isListening = false;
+    resetVoiceBtns();
+    return;
+  }
+
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = currentLang === 'hi' ? 'hi-IN' : currentLang === 'mr' ? 'mr-IN' : 'en-IN';
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.onstart = () => {
+    isListening = true;
+    const t = LANG[currentLang];
+    if (context === 'reg') setText('voice-reg-text', t.voiceListening);
+    if (context === 'pj') setText('voice-pj-text', t.voiceListening);
+    if (context === 'chat') {
+      document.getElementById('chat-voice-btn').innerHTML = '⏹';
+      document.getElementById('chat-voice-btn').style.background = 'var(--red-l)';
+    }
+  };
+
+  recognition.onresult = (e) => {
+    const transcript = e.results[0][0].transcript;
+    isListening = false;
+
+    if (context === 'reg') {
+      // Smart fill: if it has numbers, put in phone; else name
+      if (/\d{10}/.test(transcript.replace(/\s/g,'')))
+        document.getElementById('reg-phone').value = transcript.replace(/\D/g,'').slice(0,10);
+      else if (!document.getElementById('reg-name').value)
+        document.getElementById('reg-name').value = transcript;
+      else
+        document.getElementById('reg-area').value = transcript;
+      resetVoiceBtns();
+      showToast('✅ ' + transcript);
+    }
+
+    if (context === 'pj') {
+      if (!document.getElementById('pj-title-input').value)
+        document.getElementById('pj-title-input').value = transcript;
+      else if (!document.getElementById('pj-desc').value)
+        document.getElementById('pj-desc').value = transcript;
+      else if (!document.getElementById('pj-loc').value)
+        document.getElementById('pj-loc').value = transcript;
+      resetVoiceBtns();
+      showToast('✅ ' + transcript);
+    }
+
+    if (context === 'chat') {
+      document.getElementById('chat-input').value = transcript;
+      resetVoiceBtns();
+      sendChat();
+    }
+  };
+
+  recognition.onerror = (e) => {
+    isListening = false;
+    resetVoiceBtns();
+    showToast(currentLang==='hi'?'❌ आवाज़ नहीं सुनाई दिया':currentLang==='mr'?'❌ आवाज ऐकू आली नाही':'❌ Could not hear. Please try again.');
+  };
+
+  recognition.onend = () => {
+    isListening = false;
+    resetVoiceBtns();
+  };
+
+  recognition.start();
+}
+
+function resetVoiceBtns() {
+  const t = LANG[currentLang];
+  setText('voice-reg-text', t.voiceSpeak);
+  setText('voice-pj-text', t.voiceSpeak);
+  const cvb = document.getElementById('chat-voice-btn');
+  if (cvb) { cvb.innerHTML = '🎙'; cvb.style.background = 'var(--blue-l)'; }
+}
+
+/* ═══════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════ */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ═══════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════ */
+function init() {
+  buildAllLangBtns();
+  setLang('en');
+  renderTradeGrid();
+  updateStats();
+  renderWorkers();
+  renderQuickQs();
+}
+
+init();
+</script>
+</body>
+</html>
