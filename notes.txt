@@ -1,0 +1,276 @@
+=========================================================
+KaamSetu Notes
+==============
+
+Project Name:
+AI-Based Daily Wage Employment System (KaamSetu)
+
+=========================================================
+Step 1: Clone the Repository
+============================
+
+Clone the project from GitHub using the following command:
+
+git clone <repository-link>
+
+Open the project folder in Visual Studio Code.
+
+=========================================================
+Step 2: Project Structure
+=========================
+
+The project contains two main folders:
+
+1. backend
+2. frontend
+
+The backend is developed using Node.js, Express.js, and MongoDB.
+
+The frontend is developed using React.js and Vite.
+
+=========================================================
+Step 3: Backend Setup
+=====================
+
+Open a terminal inside the backend folder.
+
+Install all required packages:
+
+npm install
+
+Create a .env file and configure the following variables:
+
+MONGO_URI=Your MongoDB Atlas Connection String
+
+JWT_SECRET=Your Secret Key
+
+PORT=5000
+
+GEMINI_API_KEY=Your Gemini API Key (Optional)
+
+Start the backend server:
+
+npm start
+
+or
+
+node server.js
+
+The backend will start on:
+
+http://localhost:5000
+
+=========================================================
+Step 4: Frontend Setup
+======================
+
+Open another terminal.
+
+Navigate to the frontend folder:
+
+cd frontend
+
+Install all required dependencies:
+
+npm install
+
+Start the React application:
+
+npm run dev
+
+The application will start on:
+
+http://localhost:5173
+
+=========================================================
+Step 5: Create an Account
+=========================
+
+Open the application.
+
+Choose one of the following:
+
+• Register as Worker
+• Register as Employer
+
+Enter the required details.
+
+Login using your registered credentials.
+
+=========================================================
+Step 6: Worker Features
+=======================
+
+Workers can:
+
+• Create and edit profile
+• Upload profile picture
+• Select trade
+• Enter experience
+• Set daily wage
+• Choose languages
+• Update availability
+• View nearby jobs
+• Apply for jobs
+• View application status
+• Receive notifications
+• View AI wage recommendation
+• View AI skill recommendation
+• View ratings and completed jobs
+
+=========================================================
+Step 7: Employer Features
+=========================
+
+Employers can:
+
+• Register and login
+• Create employer profile
+• Post new jobs
+• View all posted jobs
+• View applicants
+• Call workers
+• Accept applications
+• Reject applications
+• Mark jobs as completed
+• Rate workers after job completion
+
+=========================================================
+Step 8: AI Features
+===================
+
+The system provides intelligent features including:
+
+• AI Worker Matching
+• AI Wage Recommendation
+• AI Skill Recommendation
+• Smart Job Suggestions
+• Worker Rating System
+
+=========================================================
+Step 9: Notifications
+=====================
+
+The notification module informs users about:
+
+• Job applications
+• Job acceptance
+• Job rejection
+• Job completion
+• Worker ratings
+
+=========================================================
+Step 10: Database
+=================
+
+MongoDB Atlas is used as the cloud database.
+
+Collections include:
+
+• Users
+• Workers
+• Employers
+• Jobs
+• Applications
+• Notifications
+
+=========================================================
+Step 11: Deployment
+===================
+
+Backend Deployment:
+
+Platform:
+Render
+
+Frontend Deployment:
+
+Platform:
+Netlify
+
+MongoDB:
+
+MongoDB Atlas
+
+=========================================================
+Step 12: Technologies Used
+==========================
+
+Frontend
+
+• React.js
+• Vite
+• JavaScript
+• HTML
+• CSS
+
+Backend
+
+• Node.js
+• Express.js
+
+Database
+
+• MongoDB Atlas
+
+Authentication
+
+• JWT Authentication
+
+Deployment
+
+• Netlify
+• Render
+
+Version Control
+
+• Git
+• GitHub
+
+=========================================================
+Step 13: How the System Works
+=============================
+
+1. Worker registers on the platform.
+
+2. Employer registers on the platform.
+
+3. Employer posts a job.
+
+4. Worker searches available jobs.
+
+5. Worker applies for a suitable job.
+
+6. Employer reviews applicants.
+
+7. Employer accepts or rejects applications.
+
+8. Worker receives notification.
+
+9. Job is completed.
+
+10. Employer rates the worker.
+
+11. AI recommends better wages and skills for future opportunities.
+
+=========================================================
+Step 14: Future Improvements
+============================
+
+Possible future enhancements include:
+
+• Mobile Application
+• GPS Live Tracking
+• Online Payments
+• Government Scheme Integration
+• Voice-Based Job Search
+• Multi-language Support
+• AI Resume Generation
+• AI Fraud Detection
+• Advanced Analytics Dashboard
+
+=========================================================
+Project Successfully Completed
+==============================
+
+The AI-Based Daily Wage Employment System (KaamSetu) provides a smart platform for connecting workers and employers. It simplifies daily wage hiring through AI-powered recommendations, secure authentication, job management, and cloud deployment using modern MERN technologies.
