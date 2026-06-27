@@ -1,0 +1,182 @@
+=========================================================
+              KaamSetu Project File Structure
+=========================================================
+
+Project Name:
+AI-Based Daily Wage Employment System (KaamSetu)
+
+Project Root
+│
+├── backend/
+│   │
+│   ├── config/
+│   │   └── db.js
+│   │
+│   ├── controllers/
+│   │   ├── adminController.js
+│   │   ├── aiController.js
+│   │   ├── applicationController.js
+│   │   ├── authController.js
+│   │   ├── employerController.js
+│   │   ├── jobController.js
+│   │   ├── notificationController.js
+│   │   └── workerController.js
+│   │
+│   ├── middleware/
+│   │   ├── auth.js
+│   │   └── upload.js
+│   │
+│   ├── models/
+│   │   ├── Application.js
+│   │   ├── Employer.js
+│   │   ├── Job.js
+│   │   ├── Notification.js
+│   │   ├── User.js
+│   │   └── Worker.js
+│   │
+│   ├── routes/
+│   │   ├── admin.js
+│   │   ├── ai.js
+│   │   ├── applications.js
+│   │   ├── auth.js
+│   │   ├── employers.js
+│   │   ├── jobs.js
+│   │   ├── notifications.js
+│   │   └── workers.js
+│   │
+│   ├── uploads/
+│   │
+│   ├── utils/
+│   │   ├── matchScore.js
+│   │   └── wageRecommendation.js
+│   │
+│   ├── .env
+│   ├── .env.example
+│   ├── package.json
+│   ├── package-lock.json
+│   └── server.js
+│
+├── frontend/
+│   │
+│   ├── dist/
+│   ├── node_modules/
+│   ├── public/
+│   │
+│   ├── src/
+│   │   │
+│   │   ├── assets/
+│   │   │
+│   │   ├── components/
+│   │   │   └── VoiceInput.jsx
+│   │   │
+│   │   ├── pages/
+│   │   │   ├── AdminDashboard.jsx
+│   │   │   ├── AIHelper.jsx
+│   │   │   ├── FindJobs.jsx
+│   │   │   ├── FindWorkers.jsx
+│   │   │   ├── Home.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── NotificationsList.jsx
+│   │   │   ├── PostJob.jsx
+│   │   │   ├── Profile.jsx
+│   │   │   ├── Register.jsx
+│   │   │   └── WorkerDetail.jsx
+│   │   │
+│   │   ├── services/
+│   │   │   ├── api.js
+│   │   │   └── constants.js
+│   │   │
+│   │   ├── App.jsx
+│   │   ├── App.css
+│   │   ├── index.css
+│   │   └── main.jsx
+│   │
+│   ├── .gitignore
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── README.md
+│   └── vite.config.js
+│
+├── .gitignore
+├── README.md
+├── files.txt
+├── notes.txt
+└── gallery.txt
+
+
+=========================================================
+Folder Description
+=========================================================
+
+backend/
+Contains the complete Node.js and Express.js backend. It manages
+authentication, workers, employers, job postings, applications,
+AI features, notifications, uploads, and database operations.
+
+frontend/
+Contains the React + Vite frontend that provides the complete user
+interface for workers, employers, and administrators.
+
+config/
+Stores configuration files such as the MongoDB database connection.
+
+controllers/
+Contains the business logic for authentication, AI services,
+job management, workers, employers, notifications, and admin features.
+
+middleware/
+Contains authentication middleware and file upload middleware.
+
+models/
+Contains MongoDB database models including User, Worker,
+Employer, Job, Application, and Notification.
+
+routes/
+Contains all REST API routes used by the frontend application.
+
+uploads/
+Stores uploaded profile photos and other user files.
+
+utils/
+Contains helper functions including AI-based worker matching
+and wage recommendation logic.
+
+assets/
+Stores images, icons, and other frontend resources.
+
+components/
+Contains reusable React components shared across multiple pages.
+
+pages/
+Contains all major application pages such as Home, Login,
+Register, Profile, Find Jobs, Find Workers, AI Helper,
+Post Job, Notifications, Worker Details, and Admin Dashboard.
+
+services/
+Contains API configuration and reusable frontend constants.
+
+public/
+Contains static files that are served directly to the browser.
+
+dist/
+Stores the production build generated after running
+the Vite build command.
+
+node_modules/
+Contains all installed npm packages and project dependencies.
+
+README.md
+Contains complete project documentation and project overview.
+
+files.txt
+Contains the complete project file structure.
+
+notes.txt
+Contains setup instructions, local execution guide,
+deployment guide, and project usage documentation.
+
+gallery.txt
+Contains project screenshots with descriptions of each page
+and feature.
